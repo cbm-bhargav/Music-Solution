@@ -11,10 +11,17 @@ function TeacherProfile({ teacher, showTeacherDetails, language }) {
       onClick={() => showTeacherDetails(teacher?.mzo_id)}>
       {
         <div className='w-full max-w-[120px] h-[120px] rounded-full overflow-hidden relative'>
-          <img
+          {/* <img
             src={teacher?.image_url || '/assets/images/teacherdefault.avif'}
             alt='teacher image'
             className='rounded-full object-cover  absolute inset-0 '
+          /> */}
+          <Image
+            src={teacher?.image_url || "/assets/images/teacherdefault.avif"}
+            alt="teacher image"
+            width={200}   // pick a reasonable size (e.g., max expected width)
+            height={200}  // same for height
+            className="rounded-full object-cover absolute inset-0"
           />
         </div>
       }

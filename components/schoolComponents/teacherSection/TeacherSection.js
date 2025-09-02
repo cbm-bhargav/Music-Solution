@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import TeacherSectionSidebar from './teacherSectionSidebar';
 import TeacherDetailSidebar from './teacherDetailSidebar';
 import TeacherProfile from './TeacherProfile';
@@ -90,7 +90,10 @@ function TeacherSection({
     };
   }, [isMoreTeacherSidebarOpen, scrolled]);
 
-  const teacherFilterdData = useTeacherFilter(TeachersData, teacherFilterQuery);
+  //const teacherFilterdData = useTeacherFilter(TeachersData, teacherFilterQuery);
+  const teacherFilterdData = useMemo(() => {
+    return useTeacherFilter(TeachersData, teacherFilterQuery);
+  }, [TeachersData, teacherFilterQuery]);
 
   return (
     <>
@@ -153,10 +156,16 @@ function TeacherSection({
           </>
         </div>
         {TeachersData?.length > 6 && (
+          // <div
+          //   onClick={() => handleOpenSidebar()}
+          //   className='text-[14px] font-Roboto font-medium text-[#21697C] uppercase leading-[100%] cursor-pointer text-center  py-[10px] mt-3 rounded-full hover:bg-[#EDF3F5]'>
+          //   {translateENtoDE('View all', language)} {`(${teacherFilterdData.length})`}
+          // </div>
           <div
-            onClick={() => handleOpenSidebar()}
-            className='text-[14px] font-Roboto font-medium text-[#21697C] uppercase leading-[100%] cursor-pointer text-center  py-[10px] mt-3 rounded-full hover:bg-[#EDF3F5]'>
-            {translateENtoDE('View all', language)} {`(${teacherFilterdData.length})`}
+            onClick={handleOpenSidebar}
+            className="text-[14px] font-Roboto font-medium text-[#21697C] uppercase leading-[100%] cursor-pointer text-center py-[10px] mt-3 rounded-full hover:bg-[#EDF3F5]"
+          >
+            {translateENtoDE("View all", language)} {`(${teacherFilterdData.length})`}
           </div>
         )}
 

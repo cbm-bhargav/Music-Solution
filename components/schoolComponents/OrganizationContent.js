@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { translateENtoDE } from 'functions/translator';
 import dynamic from 'next/dynamic';
+import Image from "next/image";
 
 import AboutSection from './Instruments/AboutSection';
 const OrganizationReviews = dynamic(() => import('./organizationReviews/OrganizationReviews'));
@@ -205,7 +206,14 @@ function OrganizationContent({
       <div id='about' className='mb-[12px] sm:mb-[20px] org-gallery'>
         <div className={cx('teacher-content-block md:!rounded-xl !p-[16px] md:!p-[24px] w-full ')}>
           <div className='flex items-center gap-2 mb-[20px]'>
-            <img src='/assets/images/musicschool.svg' alt='image' className='w-[32px] h-[32px]' />
+            {/* <img src='/assets/images/musicschool.svg' alt='image' className='w-[32px] h-[32px]' /> */}
+            <Image
+              src="/assets/images/musicschool.svg"
+              alt="image"
+              width={32}
+              height={32}
+              className="w-[32px] h-[32px]"
+            />
             <span className='text-[15px] font-Roboto text-black/[87%] font-semibold'>
               {' '}
               {translateENtoDE('Public Music School', language)}
