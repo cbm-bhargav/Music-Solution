@@ -154,6 +154,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-weight: 300;
   font-style: normal;
   font-family: "Roboto";
+  font-display: swap;
   src: url("../assets/fonts/Roboto/Roboto-Light.ttf") format("truetype");
 }
 
@@ -161,6 +162,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-weight: 400;
   font-style: normal;
   font-family: "Roboto";
+  font-display: swap;
   src: url("../assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
 }
 
@@ -168,6 +170,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-weight: 500;
   font-style: normal;
   font-family: "Roboto";
+  font-display: swap;
   src: url("../assets/fonts/Roboto/Roboto-Medium.ttf") format("truetype");
 }
 
@@ -175,6 +178,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-weight: 700;
   font-style: normal;
   font-family: "Roboto";
+  font-display: swap;
   src: url("../assets/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
 }
 // MS instruments font
@@ -189,6 +193,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-weight: normal;
   font-style: normal;
   font-display: block;
+  font-display: swap;
 }
 
 .ms_instruments {
@@ -659,4 +664,29 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 .disabled-chevron-arrow {
   @apply opacity-50 hover:animate-none;
   cursor: default !important;
+}
+
+/* Layout shift prevention */
+.ms_instruments {
+  font-family: "ms_instruments", "Arial", sans-serif !important;
+}
+
+/* Prevent layout shift during font loading */
+.font-roboto {
+  font-family: "Roboto", "Roboto-fallback", "Arial", sans-serif;
+}
+
+/* Container stability */
+.w-full.max-w-\[1280px\].xl\:max-w-\[1440px\] {
+  min-height: 1px;
+}
+
+/* Course section stability */
+#courses {
+  min-height: 200px;
+}
+
+/* Navigation stability */
+.flex.items-center.hidden.lg\:flex {
+  min-height: 40px;
 }
