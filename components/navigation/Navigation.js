@@ -481,23 +481,6 @@ const Navigation = ({
               <div className='mr-[32px]'>
                 <LangToggle language={language} setLanguage={setLanguage} />
               </div>
-              {/* <div className='flex pr-6 select-none'>
-                <p
-                  className={
-                    language === 'ch-en' ? 'text-primary cursor-pointer' : 'text-light-grey-300 cursor-pointer'
-                  }
-                  onClick={() => setLanguage('ch-en')}>
-                  EN
-                </p>
-                <p className='mx-1 text-light-grey-300'>|</p>
-                <p
-                  className={
-                    language === 'ch-de' ? 'text-primary cursor-pointer' : 'text-light-grey-300 cursor-pointer'
-                  }
-                  onClick={() => setLanguage('ch-de')}>
-                  DE
-                </p>
-              </div> */}
               <div className='inline-flex'>
                 <button
                   type='button'
