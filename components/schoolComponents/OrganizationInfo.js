@@ -285,8 +285,6 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
             layout='fill'
             priority
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
-            placeholder="blur"
-            blurDataURL="/assets/images/schollbg-small.webp" 
             className="object-cover rounded-xl"
           />
         </div>

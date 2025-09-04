@@ -1054,4 +1054,4 @@ function Innosuisse() {
     );
 }
 
-export default Innosuisse;
+export default React.memo(Innosuisse);
