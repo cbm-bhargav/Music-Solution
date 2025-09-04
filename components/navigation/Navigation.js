@@ -322,22 +322,6 @@ const Navigation = ({
     setMobileMenu((openMobileMenu = !openMobileMenu));
   };
 
-  // useEffect(() => {
-  //   blok.content.header.map((header) => {
-  //     header.show = false;
-
-  //     if (router.query.slug === undefined) {
-  //       header.active = false;
-  //     } else {
-  //       const active = header?.internal_link?.length
-  //         ? header.internal_link.some((link) => '/' + link.link?.cached_url === router.asPath)
-  //         : header.link?.cached_url?.split('/')[1] === router.query.slug[0];
-  //       if (active) header.active = true;
-  //     }
-  //   });
-  //   setHeaderContent(blok.content.header);
-  // }, []);
-
   useEffect(() => {
   const normalizePath = (path) => {
     if (!path) return '';
