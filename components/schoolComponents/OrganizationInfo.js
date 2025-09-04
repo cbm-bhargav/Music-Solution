@@ -277,7 +277,7 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
         </div>
       </div> */}
       <div className="relative w-full max-w-[1440px] mx-auto sm:mt-6 rounded-xl overflow-hidden px-2">
-        {/* main page bg image - schollbg.web */}
+        {/* main page background image - schollbg.web */}
         <div className="relative h-[141px] xs:h-[180px] sm:h-[280px]">
           <Image
             src="/assets/images/schollbg.webp"
