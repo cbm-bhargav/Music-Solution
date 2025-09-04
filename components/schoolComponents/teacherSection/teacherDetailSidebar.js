@@ -115,10 +115,17 @@ const TeacherDetailSidebar = React.memo(
             <li className='flex sm:flex-row flex-col gap-8 md:gap-[40px] px-[16px] sm:px-[24px] pb-[24px]'>
               <div className='w-full max-w-full sm:max-w-[288px] flex flex-col items-center '>
                 <div className='w-full !max-w-[120px] sm:!max-w-[160px] md:!max-w-[200px] !h-[120px] sm:!h-[160px] md:!h-[200px] object-cover rounded-full overflow-hidden relative'>
-                  <img
+                  {/* <img
                     src={teacherDetails?.image_url || '/assets/images/teacherdefault.avif'}
                     alt='teacher image'
                     className='absolute inset-0 object-cover rounded-full'
+                  /> */}
+                  <Image
+                    src={teacherDetails?.image_url || "/assets/images/teacherdefault.avif"}
+                    alt="teacher image"
+                    width={200}
+                    height={200}
+                    className="absolute inset-0 object-cover rounded-full"
                   />
                 </div>
                 <p className='text-[22px] sm:text-[24px] font-Roboto leading-[116%] text-[#000000DE] font-bold mt-[16px]'>

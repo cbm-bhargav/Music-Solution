@@ -13,12 +13,13 @@ const MoreCoursesSidebar = ({ data, onClose, language, imageSize }) => {
             <ul className="space-y-2">
                 {data.map((item, index) => (
                     <TeacherContentCoursesListItem
-                    item={item}
-                    key={item?.id}
-                    courseIndex={index}
-                    language={language}
-                    imageSize={imageSize}
-                />
+                        item={item}
+                        key={item?.id}
+                        courseIndex={index}
+                        language={language}
+                        imageSize={imageSize}
+                    />
+                    
                     // <CourseCard
                     //     item={item}
                     //     key={item?.id}

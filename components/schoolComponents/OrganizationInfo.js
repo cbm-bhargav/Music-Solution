@@ -257,7 +257,7 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
  
   return (
     <div>
-      <div className='w-full max-w-[1440px] mx-auto  sm:mt-[24.5px] h-[141px] xs:h-[180px] sm:h-[280px]  [&>span]:!h-full pt-4 sm:pt-0 relative rounded-xl px-[8px]'>
+      {/* <div className='w-full max-w-[1440px] mx-auto  sm:mt-[24.5px] h-[141px] xs:h-[180px] sm:h-[280px]  [&>span]:!h-full pt-4 sm:pt-0 relative rounded-xl px-[8px]'>
         <Image
           src={'/assets/images/schollbg.webp'}
           alt=''
@@ -275,6 +275,33 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
             </span>
           </div>
         </div>
+      </div> */}
+      <div className="relative w-full max-w-[1440px] mx-auto sm:mt-6 rounded-xl overflow-hidden px-2">
+        {/* main page bg image - schollbg.web */}
+        <div className="relative h-[141px] xs:h-[180px] sm:h-[280px]">
+          <Image
+            src="/assets/images/schollbg.webp"
+            alt="School background"
+            layout='fill'
+            priority
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
+            placeholder="blur"
+            blurDataURL="/assets/images/schollbg-small.webp" 
+            className="object-cover rounded-xl"
+          />
+        </div>
+
+        {/* Share button */}
+        <button
+          onClick={shareLinkHandle}
+          className="absolute top-[30px] sm:top-[39px] right-[15px] sm:right-[40px] group w-[28px] sm:w-[40px] h-[28px] sm:h-[40px] bg-white rounded-full flex items-center justify-center p-[6px] shadow cursor-pointer"
+          aria-label="Share"
+        >
+          <ShareIcon className="w-[16px] h-[16px]" />
+          <span className="absolute -top-2 right-1/2 translate-x-1/2 -translate-y-full bg-black/50 text-[12px] leading-[110%] tracking-[0.5px] font-medium text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+            Share
+          </span>
+        </button>
       </div>
       <TeacherCallbackPopups language={language} />
 
