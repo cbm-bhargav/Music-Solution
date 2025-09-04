@@ -17,6 +17,7 @@ const TeacherCard = ({ blok }) => {
                             width={56}
                             height={56}
                             objectFit='cover'
+                            loading='lazy'
                         />
                     </div>
                     <h2 className='text-[16px] font-semibold'>Natalia Ivashina</h2>

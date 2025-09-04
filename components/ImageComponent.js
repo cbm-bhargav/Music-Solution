@@ -34,6 +34,7 @@ const ImageComponent = ({ blok }) => {
           height={blok.height}
           layout={blok.image_layout}
           objectFit={blok.image_objectFit}
+          loading='lazy'
           // placeholder="blur"
           blurDataURL={imageService({
             url: blok.image,

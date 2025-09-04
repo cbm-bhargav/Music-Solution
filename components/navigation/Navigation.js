@@ -204,7 +204,7 @@ const Navigation = ({
               )}
               <NavigationTopBarList clickedHeader={clickedHeader} headerContent={headerContent} clickMenu={clickMenu} language={language} />
             </div>
-            <div className='flex items-center hidden lg:flex'>
+            {/* <div className='flex items-center hidden lg:flex'>
               <div className='mr-[32px]'>
                 <LangToggle language={language} setLanguage={setLanguage} />
               </div>
@@ -224,8 +224,8 @@ const Navigation = ({
                   onClick={() => setLanguage('ch-de')}>
                   DE
                 </p>
-              </div> */}
-              <div className='inline-flex'>
+              </div> */ }
+              {/*<div className='inline-flex'>
                 <button
                   type='button'
                   onClick={() => loginSignup('login')}
@@ -239,7 +239,27 @@ const Navigation = ({
                   {blok.content.registers}
                 </button>
               </div>
+            </div> */}
+            <div className="flex items-center hidden lg:flex min-h-[48px]"> 
+              <div className="mr-[32px]">
+                <LangToggle language={language} setLanguage={setLanguage} />
+              </div>
+              <div className="inline-flex">
+                <button
+                  type="button"
+                  onClick={() => loginSignup('login')}
+                  className='mr-4 lg:!px-3 min-[1480px]:!px-11 tracking-widest border-2 btn-outline'>
+                  {blok.content.log_in}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => loginSignup('signup')}
+                  className='tracking-widest lg:!px-3 min-[1480px]:!px-11 btn-primary bg-primary'>
+                  {blok.content.registers}
+                </button>
+              </div>
             </div>
+
             <div className='lg:hidden' onClick={clickMobileMenu}>
               {!openMobileMenu && (
                 <i
