@@ -270,7 +270,6 @@
 
 // export default Navigation;
 
-
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
@@ -293,7 +292,7 @@ const Navigation = ({
   languageContent,
   isTeacherInfoPage,
   isOrganizatioPage,
-  organizationData
+  organizationData,
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -305,62 +304,71 @@ const Navigation = ({
   const router = useRouter();
 
   const [show] = showForm;
-  const blok = story?.body?.filter((comp) => comp.component === 'global_reference')[0].reference;
+
+  // 🔒 Safe fallback if story or reference is missing
+  const blok =
+    story?.body?.find((comp) => comp.component === 'global_reference')?.reference ?? {};
 
   const clickMenu = (clickedHeader) => {
-    setClickedHeader(clickedHeader.name);
+    setClickedHeader(clickedHeader?.name ?? '');
 
-    headerContent.forEach((header) => {
-      return (header.show = header.show ? false : header._uid === clickedHeader._uid);
-    });
+    const updated = headerContent.map((header) => ({
+      ...header,
+      show: header._uid === clickedHeader._uid ? !header.show : false,
+    }));
 
     setOpenMenu(!openMenu);
-    setHeaderContent(headerContent);
+    setHeaderContent(updated);
   };
 
   const clickMobileMenu = () => {
-    setMobileMenu((openMobileMenu = !openMobileMenu));
+    setMobileMenu(!openMobileMenu);
   };
 
   useEffect(() => {
-  const normalizePath = (path) => {
-    if (!path) return '';
-    return '/' + path.replace(/^\/|\/$/g, '').split('?')[0];
-  };
+    const normalizePath = (path) => {
+      if (!path) return '';
+      return '/' + path.replace(/^\/|\/$/g, '').split('?')[0];
+    };
 
-  const currentPath = normalizePath(router.asPath);
+    const currentPath = normalizePath(router.asPath);
 
-  const updatedHeaders = blok.content.header.map((header) => {
-    header.show = false;
-    header.active = false;
+    const updatedHeaders =
+      blok?.content?.header?.map((header) => {
+        const newHeader = { ...header, show: false, active: false };
 
-    const isActive = header?.internal_link?.length
-      ? header.internal_link.some((link) => {
-          const targetPath = normalizePath(link.link?.cached_url);
-          return targetPath === currentPath;
-        })
-      : normalizePath(header.link?.cached_url) === currentPath;
+        const isActive = header?.internal_link?.length
+          ? header.internal_link.some((link) => {
+              const targetPath = normalizePath(link?.link?.cached_url);
+              return targetPath === currentPath;
+            })
+          : normalizePath(header?.link?.cached_url) === currentPath;
 
-    if (isActive) {
-      header.active = true;
-    }
+        if (isActive) newHeader.active = true;
+        return newHeader;
+      }) ?? [];
 
-    return header;
-  });
-
-  setHeaderContent(updatedHeaders);
-}, [router.asPath]); 
-  
+    setHeaderContent(updatedHeaders);
+  }, [router.asPath, blok?.content?.header]);
 
   const setLanguage = (value) => {
     setIsLoading(true);
 
-    if(router?.pathname.includes('/schools')){
-      const schoolName = value == 'ch-en' ? organizationData?.full_name?.en : organizationData?.full_name?.de
-      router.replace(`/${value}/schools/${router.query.organization}/${schoolName?.toLowerCase().split(' ').join('-')}`)
-      document.body.style.overflow = 'scroll'
+    if (router?.pathname.includes('/schools')) {
+      const schoolName =
+        value === 'ch-en'
+          ? organizationData?.full_name?.en
+          : organizationData?.full_name?.de;
+
+      router.replace(
+        `/${value}/schools/${router.query.organization}/${schoolName
+          ?.toLowerCase()
+          .split(' ')
+          .join('-')}`
+      );
+      document.body.style.overflow = 'scroll';
       setTimeout(() => setIsLoading(false), 3000);
-      return
+      return;
     }
 
     if (isLocationPage) {
@@ -368,7 +376,9 @@ const Navigation = ({
     } else {
       if (languageContent && language !== value) languageContent(value);
       if (!languageContent && language !== value) {
-        router.push(router.asPath.replace(value === 'ch-en' ? 'ch-de' : 'ch-en', value));
+        router.push(
+          router.asPath.replace(value === 'ch-en' ? 'ch-de' : 'ch-en', value)
+        );
       }
     }
 
@@ -391,7 +401,9 @@ const Navigation = ({
           'neuigkeiten',
           'in-den-nachrichten',
           'nachrichtendetails',
-        ].includes(router.query.slug[0]) || router.asPath.includes('blog-de' || 'blog-en')
+        ].includes(router.query.slug?.[0]) ||
+          router.asPath.includes('blog-de') ||
+          router.asPath.includes('blog-en')
       );
   }, [router.query.slug, router.asPath]);
 
@@ -403,17 +415,27 @@ const Navigation = ({
     router.push(`${process.env.MATCHSPACE_PROD}/${route}`);
   };
 
-  sharedService.getModalOpenData().subscribe((data) => {
-    setModalOpen(data);
-  });
+  useEffect(() => {
+    const sub1 = sharedService.getModalOpenData().subscribe((data) => {
+      setModalOpen(data);
+    });
 
-  sharedService.getnavOpenData().subscribe((data) => {
-    if (!data) {
-      headerContent.map((header) => (header.show = false));
-      setHeaderContent(headerContent);
-      setOpenMenu(false);
-    }
-  });
+    const sub2 = sharedService.getnavOpenData().subscribe((data) => {
+      if (!data) {
+        setHeaderContent((prev) =>
+          prev.map((header) => ({ ...header, show: false }))
+        );
+        setOpenMenu(false);
+      }
+    });
+
+    return () => {
+      sub1.unsubscribe?.();
+      sub2.unsubscribe?.();
+      sharedService.clearModalData();
+      sharedService.clearNavData();
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrollTopValue(window.scrollY);
@@ -425,69 +447,91 @@ const Navigation = ({
     };
   }, []);
 
-  useEffect(() => {
-    return () => {
-      sharedService.clearModalData();
-      sharedService.clearNavData();
-    };
-  }, []);
-
   const checkHeaderClasses = (classes) => (!isOnSearchPage ? classes : '');
+
   return (
     <>
       {isLoading && (
-        <div className='page-loading'>
-          <div className='loading-balls'>
-            <div className='ball first-ball mr-[12px]'></div>
-            <div className='ball second-ball mr-[12px]'></div>
-            <div className='ball'></div>
+        <div className="page-loading">
+          <div className="loading-balls">
+            <div className="ball first-ball mr-[12px]"></div>
+            <div className="ball second-ball mr-[12px]"></div>
+            <div className="ball"></div>
           </div>
         </div>
       )}
-      <header className={checkHeaderClasses(modalOpen ? 'sticky lg:top-0' : 'sticky lg:top-0 z-30')}>
-        <nav className='relative'>
+      <header
+        className={checkHeaderClasses(
+          modalOpen ? 'sticky lg:top-0' : 'sticky lg:top-0 z-30'
+        )}
+      >
+        <nav className="relative">
           <div
             className={`search-header ${
               show ? 'z-0' : 'z-10'
-            } flex items-center justify-between ${isOrganizatioPage ? 'bg-white' : 'lg:bg-white'} flex-nowrap py-2 lg:py-0 lg:px-8 xxl:px-20 px-4 lg:shadow-lg bg-opacity-0 ${
+            } flex items-center justify-between ${
+              isOrganizatioPage ? 'bg-white' : 'lg:bg-white'
+            } flex-nowrap py-2 lg:py-0 lg:px-8 xxl:px-20 px-4 lg:shadow-lg bg-opacity-0 ${
               isTeacherInfoPage ? '' : 'fixed'
-            } top-0 inset-x-0 ${Styles['ms-nav-position']} 
-          ${
-            !isOrganizatioPage && (scrollTopValue !== 0 || helpPage) && Styles[isOnSearchPage ? 'ms-nav-active-on-search' : 'ms-nav-active']
-          }`}>
-            <div className={`inline-flex items-center ${isOnSearchPage ? 'search' : 'home'}`}>
+            } top-0 inset-x-0 ${Styles['ms-nav-position']} ${
+              !isOrganizatioPage &&
+              (scrollTopValue !== 0 || helpPage) &&
+              Styles[isOnSearchPage ? 'ms-nav-active-on-search' : 'ms-nav-active']
+            }`}
+          >
+            <div
+              className={`inline-flex items-center ${
+                isOnSearchPage ? 'search' : 'home'
+              }`}
+            >
               {!show && (
-                <Logo href={LinkRoute(blok?.content?.header?.[0])} isVisible={isVisible} isOnSearchPage={isOnSearchPage} />
+                <Logo
+                  href={LinkRoute(blok?.content?.header?.[0])}
+                  isVisible={isVisible}
+                  isOnSearchPage={isOnSearchPage}
+                />
               )}
-              <NavigationTopBarList clickedHeader={clickedHeader} headerContent={headerContent} clickMenu={clickMenu} language={language} />
+              <NavigationTopBarList
+                clickedHeader={clickedHeader}
+                headerContent={headerContent}
+                clickMenu={clickMenu}
+                language={language}
+              />
             </div>
-            <div className='flex items-center hidden lg:flex'>
-              <div className='mr-[32px]'>
+            {/* <div className="flex items-center hidden lg:flex"> */}
+            <div className="items-center hidden lg:flex">
+              <div className="mr-[32px]">
                 <LangToggle language={language} setLanguage={setLanguage} />
               </div>
-              <div className='inline-flex'>
+              <div className="inline-flex">
                 <button
-                  type='button'
+                  type="button"
                   onClick={() => loginSignup('login')}
-                  className='mr-4 lg:!px-3 min-[1480px]:!px-11 tracking-widest border-2 btn-outline'>
-                  {blok.content.log_in}
+                  className="mr-4 lg:!px-3 min-[1480px]:!px-11 tracking-widest border-2 btn-outline"
+                >
+                  {blok?.content?.log_in ?? 'Login'}
                 </button>
                 <button
-                  type='button'
+                  type="button"
                   onClick={() => loginSignup('signup')}
-                  className='tracking-widest lg:!px-3 min-[1480px]:!px-11 btn-primary bg-primary'>
-                  {blok.content.registers}
+                  className="tracking-widest lg:!px-3 min-[1480px]:!px-11 btn-primary bg-primary"
+                >
+                  {blok?.content?.registers ?? 'Register'}
                 </button>
               </div>
             </div>
-            <div className='lg:hidden' onClick={clickMobileMenu}>
+
+            <div className="lg:hidden" onClick={clickMobileMenu}>
               {!openMobileMenu && (
                 <i
                   className={`${
-                    isTeacherInfoPage || (scrollTopValue !== 0 && !isOnSearchPage) || helpPage
+                    isTeacherInfoPage ||
+                    (scrollTopValue !== 0 && !isOnSearchPage) ||
+                    helpPage
                       ? 'text-primary'
                       : 'text-white'
-                  } material-icons-outlined text-40px mobile-menu-icon`}>
+                  } material-icons-outlined text-40px mobile-menu-icon`}
+                >
                   menu
                 </i>
               )}
