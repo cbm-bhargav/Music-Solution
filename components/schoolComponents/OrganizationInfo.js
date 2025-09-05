@@ -288,7 +288,7 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
             className="object-cover rounded-xl"
           />
         </div>
-
+        
         {/* Share button */}
         <button
           onClick={shareLinkHandle}

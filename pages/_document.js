@@ -213,6 +213,7 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import Script from 'next/script';
 
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx) {
@@ -221,7 +222,9 @@ export default class CustomDocument extends Document {
 
     try {
       ctx.renderPage = () =>
-        originalRenderPage((App) => (props) => sheet.collectStyles(<App {...props} />));
+        originalRenderPage((App) => (props) =>
+          sheet.collectStyles(<App {...props} />)
+        );
 
       const initialProps = await Document.getInitialProps(ctx);
       return { ...initialProps, styles: [...initialProps.styles, sheet.getStyleElement()] };
@@ -241,6 +244,10 @@ export default class CustomDocument extends Document {
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://www.googletagmanager.com" />
+          <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+            rel="stylesheet"
+          />
 
           {/* Preload custom font (woff2 only) */}
           <link
@@ -250,34 +257,23 @@ export default class CustomDocument extends Document {
             type="font/woff2"
             crossOrigin="anonymous"
           />
-
-          {/* Google Fonts (deferred using media+onLoad) */}
           <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-            rel="stylesheet"
-            media="print"
-            onLoad="this.media='all'"
+            rel="preload"
+            as="image"
+            href="/assets/images/schollbg1.webp"
+            type="image/webp"
           />
 
           <style
             dangerouslySetInnerHTML={{
               __html: `
-                /* ✅ Ensure Roboto always uses font-display: swap */
-                @font-face {
-                  font-family: 'Roboto';
-                  font-style: normal;
-                  font-weight: 100 900;
-                  font-display: swap;
-                  src: local('Roboto'), url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxP.woff2) format('woff2');
-                }
-
-                /* Material Icons (swap to avoid CLS) */
+                /* Material Icons */
                 @font-face {
                   font-family: 'Material Icons Outlined';
                   font-style: normal;
                   font-weight: 400;
                   font-display: swap;
-                  src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v95/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUcel5euIg.woff2) format('woff2');
+                  src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v95/gok-H7zzDkdnRel8.woff2) format('woff2');
                 }
 
                 /* Custom font optimized */
@@ -305,20 +301,15 @@ export default class CustomDocument extends Document {
                   size-adjust: 107.4%;
                 }
 
-                .material-icons-outlined {
-                  font-family: 'Material Icons Outlined';
-                  font-weight: normal;
-                  font-style: normal;
-                  font-size: 24px;
-                  line-height: 1;
-                  letter-spacing: normal;
-                  text-transform: none;
-                  display: inline-block;
-                  white-space: nowrap;
-                  word-wrap: normal;
-                  direction: ltr;
-                  -webkit-font-smoothing: antialiased;
-                }
+                // .material-icons-outlined {
+                //   font-family: 'Material Icons Outlined';
+                //   font-weight: normal;
+                //   font-style: normal;
+                //   font-size: 24px;
+                //   line-height: 1;
+                //   display: inline-block;
+                //   -webkit-font-smoothing: antialiased;
+                // }
               `,
             }}
           />
@@ -337,11 +328,29 @@ export default class CustomDocument extends Document {
               `,
             }}
           />
+
           <Main />
           <NextScript />
+
+          {/* ✅ Defer Google Fonts (non-blocking) */}
+          <Script
+            id="load-roboto"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  var l = document.createElement('link');
+                  l.rel = 'stylesheet';
+                  l.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap';
+                  document.head.appendChild(l);
+                })();
+              `,
+            }}
+          />
         </body>
       </Html>
     );
   }
 }
+
 
