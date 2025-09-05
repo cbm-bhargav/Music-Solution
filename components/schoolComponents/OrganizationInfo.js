@@ -283,7 +283,7 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
             src="/assets/images/schollbg1.webp"
             alt="School background"
             layout='fill'
-            priority
+            fetchpriority='high'
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
             className="object-cover rounded-xl"
           />
