@@ -207,12 +207,13 @@ function OrganizationContent({
         <div className={cx('teacher-content-block md:!rounded-xl !p-[16px] md:!p-[24px] w-full ')}>
           <div className='flex items-center gap-2 mb-[20px]'>
             {/* <img src='/assets/images/musicschool.svg' alt='image' className='w-[32px] h-[32px]' /> */}
-            <Image
+            <img
               src="/assets/images/musicschool.svg"
-              alt="image"
+              alt="Music School"
               width={32}
               height={32}
-              className="w-[32px] h-[32px]"
+              loading="lazy"
+              className="w-8 h-8"
             />
             <span className='text-[15px] font-Roboto text-black/[87%] font-semibold'>
               {' '}

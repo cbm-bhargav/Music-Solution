@@ -123,13 +123,14 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
         {/* Owner Info */}
         <div className="flex items-center gap-3 mt-3">
           <div className="w-[48px] h-[48px] rounded-full overflow-hidden">
-            <Image
+            {/* <Image
               src={organizationOwnerImg}
               alt="Owner image"
               width={48}
               height={48}
               className="w-full h-full object-cover"
-            />
+            /> */}
+            <Image src={organizationOwnerImg} alt='img' className='w-full h-full  object-cover' />
           </div>
           <div>
             <h4 className="text-[15px] font-Roboto font-bold leading-[160%] text-black/[87%]">

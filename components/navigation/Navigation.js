@@ -270,6 +270,293 @@
 
 // export default Navigation;
 
+//---------------------------------------------------
+
+// import dynamic from 'next/dynamic';
+// import { useRouter } from 'next/router';
+// import React, { useState, useEffect } from 'react';
+// import Styles from '../../styles/navigation.module.scss';
+// import NavigationTopBarList from './NavigationTopBarList/NavigationTopBarList';
+// import { sharedService } from '../../utils/shared-service';
+// import LangToggle from '../NewDesigns/LangToggle';
+// import LinkRoute from '../../utils/link-route';
+
+// const Logo = dynamic(() => import('./../Logo'));
+// const MobileMenu = dynamic(() => import('./../MobileMenu'));
+
+// const Navigation = ({
+//   story,
+//   language,
+//   showForm,
+//   isVisible,
+//   isLocationPage,
+//   isOnSearchPage,
+//   languageContent,
+//   isTeacherInfoPage,
+//   isOrganizatioPage,
+//   organizationData,
+// }) => {
+//   const [openMenu, setOpenMenu] = useState(false);
+//   const [modalOpen, setModalOpen] = useState(false);
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [clickedHeader, setClickedHeader] = useState('');
+//   const [headerContent, setHeaderContent] = useState([]);
+//   const [scrollTopValue, setScrollTopValue] = useState(0);
+//   const [openMobileMenu, setMobileMenu] = useState(false);
+//   const router = useRouter();
+
+//   const [show] = showForm;
+
+//   // 🔒 Safe fallback if story or reference is missing
+//   const blok =
+//     story?.body?.find((comp) => comp.component === 'global_reference')?.reference ?? {};
+
+//   const clickMenu = (clickedHeader) => {
+//     setClickedHeader(clickedHeader?.name ?? '');
+
+//     const updated = headerContent.map((header) => ({
+//       ...header,
+//       show: header._uid === clickedHeader._uid ? !header.show : false,
+//     }));
+
+//     setOpenMenu(!openMenu);
+//     setHeaderContent(updated);
+//   };
+
+//   const clickMobileMenu = () => {
+//     setMobileMenu(!openMobileMenu);
+//   };
+
+//   useEffect(() => {
+//     const normalizePath = (path) => {
+//       if (!path) return '';
+//       return '/' + path.replace(/^\/|\/$/g, '').split('?')[0];
+//     };
+
+//     const currentPath = normalizePath(router.asPath);
+
+//     const updatedHeaders =
+//       blok?.content?.header?.map((header) => {
+//         const newHeader = { ...header, show: false, active: false };
+
+//         const isActive = header?.internal_link?.length
+//           ? header.internal_link.some((link) => {
+//               const targetPath = normalizePath(link?.link?.cached_url);
+//               return targetPath === currentPath;
+//             })
+//           : normalizePath(header?.link?.cached_url) === currentPath;
+
+//         if (isActive) newHeader.active = true;
+//         return newHeader;
+//       }) ?? [];
+
+//     setHeaderContent(updatedHeaders);
+//   }, [router.asPath, blok?.content?.header]);
+
+//   const setLanguage = (value) => {
+//     setIsLoading(true);
+
+//     if (router?.pathname.includes('/schools')) {
+//       const schoolName =
+//         value === 'ch-en'
+//           ? organizationData?.full_name?.en
+//           : organizationData?.full_name?.de;
+
+//       router.replace(
+//         `/${value}/schools/${router.query.organization}/${schoolName
+//           ?.toLowerCase()
+//           .split(' ')
+//           .join('-')}`
+//       );
+//       document.body.style.overflow = 'scroll';
+//       setTimeout(() => setIsLoading(false), 3000);
+//       return;
+//     }
+
+//     if (isLocationPage) {
+//       if (language !== value) router.push(`/${value}`);
+//     } else {
+//       if (languageContent && language !== value) languageContent(value);
+//       if (!languageContent && language !== value) {
+//         router.push(
+//           router.asPath.replace(value === 'ch-en' ? 'ch-de' : 'ch-en', value)
+//         );
+//       }
+//     }
+
+//     setTimeout(() => setIsLoading(false), 3000);
+//   };
+
+//   const [helpPage, SetHelpPage] = useState(false);
+//   useEffect(() => {
+//     if (router.query.slug !== undefined)
+//       SetHelpPage(
+//         [
+//           'agb-datenschutz-cookies-impressum',
+//           'hilfe',
+//           'help',
+//           'blog',
+//           'news-detail',
+//           'in-the-news',
+//           'news',
+//           'terms-and-conditions',
+//           'neuigkeiten',
+//           'in-den-nachrichten',
+//           'nachrichtendetails',
+//         ].includes(router.query.slug?.[0]) ||
+//           router.asPath.includes('blog-de') ||
+//           router.asPath.includes('blog-en')
+//       );
+//   }, [router.query.slug, router.asPath]);
+
+//   const loginSignup = (value) => {
+//     const route =
+//       value === 'login'
+//         ? `auth/login?language=${language.includes('en') ? 'en' : 'de'}`
+//         : `auth/signup?language=${language.includes('en') ? 'en' : 'de'}`;
+//     router.push(`${process.env.MATCHSPACE_PROD}/${route}`);
+//   };
+
+//   useEffect(() => {
+//     const sub1 = sharedService.getModalOpenData().subscribe((data) => {
+//       setModalOpen(data);
+//     });
+
+//     const sub2 = sharedService.getnavOpenData().subscribe((data) => {
+//       if (!data) {
+//         setHeaderContent((prev) =>
+//           prev.map((header) => ({ ...header, show: false }))
+//         );
+//         setOpenMenu(false);
+//       }
+//     });
+
+//     return () => {
+//       sub1.unsubscribe?.();
+//       sub2.unsubscribe?.();
+//       sharedService.clearModalData();
+//       sharedService.clearNavData();
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     const handleScroll = () => setScrollTopValue(window.scrollY);
+//     handleScroll();
+
+//     window.addEventListener('scroll', handleScroll);
+//     return () => {
+//       window.removeEventListener('scroll', handleScroll);
+//     };
+//   }, []);
+
+//   const checkHeaderClasses = (classes) => (!isOnSearchPage ? classes : '');
+
+//   return (
+//     <>
+//       {isLoading && (
+//         <div className="page-loading">
+//           <div className="loading-balls">
+//             <div className="ball first-ball mr-[12px]"></div>
+//             <div className="ball second-ball mr-[12px]"></div>
+//             <div className="ball"></div>
+//           </div>
+//         </div>
+//       )}
+//       <header
+//         className={checkHeaderClasses(
+//           modalOpen ? 'sticky lg:top-0' : 'sticky lg:top-0 z-30'
+//         )}
+//       >
+//         <nav className="relative">
+//           <div
+//             className={`search-header ${
+//               show ? 'z-0' : 'z-10'
+//             } flex items-center justify-between ${
+//               isOrganizatioPage ? 'bg-white' : 'lg:bg-white'
+//             } flex-nowrap py-2 lg:py-0 lg:px-8 xxl:px-20 px-4 lg:shadow-lg bg-opacity-0 ${
+//               isTeacherInfoPage ? '' : 'fixed'
+//             } top-0 inset-x-0 ${Styles['ms-nav-position']} ${
+//               !isOrganizatioPage &&
+//               (scrollTopValue !== 0 || helpPage) &&
+//               Styles[isOnSearchPage ? 'ms-nav-active-on-search' : 'ms-nav-active']
+//             }`}
+//           >
+//             <div
+//               className={`inline-flex items-center ${
+//                 isOnSearchPage ? 'search' : 'home'
+//               }`}
+//             >
+//               {!show && (
+//                 <Logo
+//                   href={LinkRoute(blok?.content?.header?.[0])}
+//                   isVisible={isVisible}
+//                   isOnSearchPage={isOnSearchPage}
+//                 />
+//               )}
+//               <NavigationTopBarList
+//                 clickedHeader={clickedHeader}
+//                 headerContent={headerContent}
+//                 clickMenu={clickMenu}
+//                 language={language}
+//               />
+//             </div>
+//             {/* <div className="flex items-center hidden lg:flex"> */}
+//             <div className="items-center hidden lg:flex">
+//               <div className="mr-[32px]">
+//                 <LangToggle language={language} setLanguage={setLanguage} />
+//               </div>
+//               <div className="inline-flex">
+//                 <button
+//                   type="button"
+//                   onClick={() => loginSignup('login')}
+//                   className="mr-4 lg:!px-3 min-[1480px]:!px-11 tracking-widest border-2 btn-outline"
+//                 >
+//                   {blok?.content?.log_in ?? 'Login'}
+//                 </button>
+//                 <button
+//                   type="button"
+//                   onClick={() => loginSignup('signup')}
+//                   className="tracking-widest lg:!px-3 min-[1480px]:!px-11 btn-primary bg-primary"
+//                 >
+//                   {blok?.content?.registers ?? 'Register'}
+//                 </button>
+//               </div>
+//             </div>
+
+//             <div className="lg:hidden" onClick={clickMobileMenu}>
+//               {!openMobileMenu && (
+//                 <i
+//                   className={`${
+//                     isTeacherInfoPage ||
+//                     (scrollTopValue !== 0 && !isOnSearchPage) ||
+//                     helpPage
+//                       ? 'text-primary'
+//                       : 'text-white'
+//                   } material-icons-outlined text-40px mobile-menu-icon`}
+//                 >
+//                   menu
+//                 </i>
+//               )}
+//             </div>
+//           </div>
+//         </nav>
+//         {openMobileMenu && (
+//           <MobileMenu
+//             blok={blok}
+//             language={language}
+//             close={clickMobileMenu}
+//             changeLanguage={(value) => setLanguage(value)}
+//           />
+//         )}
+//       </header>
+//     </>
+//   );
+// };
+
+// export default Navigation;
+
+//----------------------------------------------
+
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
@@ -464,6 +751,7 @@ const Navigation = ({
         className={checkHeaderClasses(
           modalOpen ? 'sticky lg:top-0' : 'sticky lg:top-0 z-30'
         )}
+        style={{ minHeight: '64px' }} // ✅ Reserve height to prevent CLS
       >
         <nav className="relative">
           <div
@@ -485,11 +773,13 @@ const Navigation = ({
               }`}
             >
               {!show && (
-                <Logo
-                  href={LinkRoute(blok?.content?.header?.[0])}
-                  isVisible={isVisible}
-                  isOnSearchPage={isOnSearchPage}
-                />
+                <div style={{ width: 120, height: 40, display: 'flex', alignItems: 'center' }}>
+                  <Logo
+                    href={LinkRoute(blok?.content?.header?.[0])}
+                    isVisible={isVisible}
+                    isOnSearchPage={isOnSearchPage}
+                  />
+                </div>
               )}
               <NavigationTopBarList
                 clickedHeader={clickedHeader}
@@ -498,7 +788,6 @@ const Navigation = ({
                 language={language}
               />
             </div>
-            {/* <div className="flex items-center hidden lg:flex"> */}
             <div className="items-center hidden lg:flex">
               <div className="mr-[32px]">
                 <LangToggle language={language} setLanguage={setLanguage} />
@@ -508,6 +797,7 @@ const Navigation = ({
                   type="button"
                   onClick={() => loginSignup('login')}
                   className="mr-4 lg:!px-3 min-[1480px]:!px-11 tracking-widest border-2 btn-outline"
+                  style={{ minWidth: '110px' }} // ✅ Prevent width jump
                 >
                   {blok?.content?.log_in ?? 'Login'}
                 </button>
@@ -515,6 +805,7 @@ const Navigation = ({
                   type="button"
                   onClick={() => loginSignup('signup')}
                   className="tracking-widest lg:!px-3 min-[1480px]:!px-11 btn-primary bg-primary"
+                  style={{ minWidth: '110px' }} // ✅ Prevent width jump
                 >
                   {blok?.content?.registers ?? 'Register'}
                 </button>
@@ -530,7 +821,8 @@ const Navigation = ({
                     helpPage
                       ? 'text-primary'
                       : 'text-white'
-                  } material-icons-outlined text-40px mobile-menu-icon`}
+                  } material-icons-outlined mobile-menu-icon`}
+                  style={{ width: 40, height: 40, display: 'inline-block', textAlign: 'center' }} // ✅ Reserve space
                 >
                   menu
                 </i>
