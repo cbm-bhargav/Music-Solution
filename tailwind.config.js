@@ -24,6 +24,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        roboto: ["var(--font-roboto)", "Arial", "sans-serif"],
+      },
       maxHeight: {
         '112': '28rem',
       },
