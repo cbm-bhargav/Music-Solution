@@ -673,9 +673,9 @@ src:
 }
 
 /* Prevent layout shift during font loading */
-// .font-roboto {
-//   font-family: "Roboto", "Roboto-fallback", "Arial", sans-serif;
-// }
+.font-roboto {
+  font-family: "Roboto", "Roboto-fallback", "Arial", sans-serif;
+}
 
 /* Container stability */
 .w-full.max-w-\[1280px\].xl\:max-w-\[1440px\] {

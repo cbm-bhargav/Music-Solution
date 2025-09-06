@@ -58,7 +58,7 @@ export default class CustomDocument extends Document {
           <style
             dangerouslySetInnerHTML={{
               __html: `
-                // /* fallback */
+                /* fallback */
                 @font-face {
                   font-family: 'Material Icons Outlined';
                   font-style: normal;
