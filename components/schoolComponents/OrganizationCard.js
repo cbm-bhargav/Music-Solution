@@ -103,20 +103,20 @@ function OrganizationCard({
                       'w-full max-w-[56px] sm:max-w-[100px] h-[56px] sm:h-[100px] overflow-hidden rounded-full ml-[-7%] sm:ml-[-3%] flex items-center justify-center relative',
                       Styles.card_teacher_wrapper
                     )}>
-                     <img
+                     {/* <img
                       src={teacher || '/assets/images/teacherdefault.avif'}
                       alt='teacher image'
                       layout='intrinsic'
-                      className='rounded-full object-cover'
-                    />
-                    {/* <Image
-                      src={teacher || '/assets/images/teacherdefault.avif'}
-                      alt='teacher image'
-                      layout='intrinsic'
-                      width={100}
-                      height={100}
                       className='rounded-full object-cover'
                     /> */}
+                    <Image
+                      src={teacher || '/assets/images/teacherdefault.avif'}
+                      alt='teacher image'
+                      layout='intrinsic'
+                      width={200}
+                      height={200}
+                      className='rounded-full object-cover'
+                    />
                   </div>
                 }
               </>

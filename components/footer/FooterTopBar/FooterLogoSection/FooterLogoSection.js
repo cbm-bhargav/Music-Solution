@@ -13,7 +13,8 @@ const generateSocialIcon = (link, iconSrc, alt) => (
 );
 
 const FooterLogoSection = ({ footerData, isTeacherInfoPage, language }) => {
-  const { image_logo, internal_link, icon_name } = footerData;
+  //const { image_logo, internal_link, icon_name } = footerData;
+  const { internal_link } = footerData;
 
   // Dynamic class logic
   let classNames = '';
@@ -34,7 +35,6 @@ const FooterLogoSection = ({ footerData, isTeacherInfoPage, language }) => {
       classNames = 'elfsight-app-fd25024a-2452-4e98-9f1a-54ce628a8d66';
     }
   }
-
 
   return (
     <>

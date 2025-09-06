@@ -23,25 +23,64 @@ export default class CustomDocument extends Document {
         <Head>
           {this.props.styleTags}
           {/** Add Google fonts and Preconnect to Google Servers - Next JS will add Optimizations automatically  */}
-          <link rel='preconnect' href='https://fonts.googleapis.com' />
+          {/* <link rel='preconnect' href='https://fonts.googleapis.com' /> */}
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link rel='preconnect' href='https://www.googletagmanager.com' />
-
           <link
-            href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap'
-            rel='stylesheet'
+            rel="preload"
+            href="/assets/fonts/Roboto/Roboto-Regular.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
           />
+          <link
+            rel="preload"
+            href="/assets/fonts/Roboto/Roboto-Bold.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/assets/fonts/Roboto/Roboto-Light.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/assets/fonts/Roboto/Roboto-Medium.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/assets/fonts/ms_instruments.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/assets/fonts/ms_instruments.woff"
+            as="font"
+            type="font/woff"
+            crossOrigin="anonymous"
+          />
+
           <style
             dangerouslySetInnerHTML={{
               __html: `
                 /* fallback */
-                @font-face {
-                  font-family: 'Material Icons Outlined';
-                  font-style: normal;
-                  font-weight: 400;
-                  font-display: swap;
-                  src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v95/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUcel5euIg.woff2) format('woff2');
-                }
+                // @font-face {
+                //   font-family: 'Material Icons Outlined';
+                //   font-style: normal;
+                //   font-weight: 400;
+                //   font-display: swap;
+                //   src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v95/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUcel5euIg.woff2) format('woff2');
+                // }
+
                 .material-icons-outlined {
                   font-family: 'Material Icons Outlined';
                   font-weight: normal;

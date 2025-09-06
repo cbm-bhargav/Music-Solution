@@ -1,12 +1,12 @@
-import React from 'react';
+// import React from 'react';
 
-import { icons } from './icons';
+// import { icons } from './icons';
 
-export const IconComponent = ({ icon, size = 'medium', className }) => {
-    const Icon = icon && typeof icons[icon] !== undefined && icons[icon];
-    if (!Icon) {
-        return null;
-    }
+// export const IconComponent = ({ icon, size = 'medium', className }) => {
+//     const Icon = icon && typeof icons[icon] !== undefined && icons[icon];
+//     if (!Icon) {
+//         return null;
+//     }
 
-    return <Icon className={className} />;
-};
+//     return <Icon className={className} />;
+// };

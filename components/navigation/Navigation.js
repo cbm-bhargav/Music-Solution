@@ -204,7 +204,7 @@ const Navigation = ({
               )}
               <NavigationTopBarList clickedHeader={clickedHeader} headerContent={headerContent} clickMenu={clickMenu} language={language} />
             </div>
-            <div className='flex items-center hidden lg:flex'>
+            <div className='items-center hidden lg:flex'>
               <div className='mr-[32px]'>
                 <LangToggle language={language} setLanguage={setLanguage} />
               </div>

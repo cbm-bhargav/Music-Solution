@@ -45,7 +45,7 @@ export const icons = {
   recorder: Recorder,
   electricGuitar: ElectricGuitar,
   blog: Blog,
-  innosuisse: Innosuisse,
+  // innosuisse: Innosuisse,
   clarinet: Clarinet,
   transverseFlute: TransverseFlute,
   saxophone: Saxophone,
