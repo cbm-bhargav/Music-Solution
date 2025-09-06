@@ -16,17 +16,10 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
       <div className='bg-white px-[16px] xs:px-[24px]  shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.10),0px_4px_6px_-2px_rgba(16,24,40,0.05)] sm:rounded-[20px] rounded-b-[20px] xs:pt-0 pt-20'>
         <div className='flex items-center flex-col pt-6 md:pt-0 '>
           <div className='md:mt-0 absolute xs:static top-[-48px] em:top-[-70px] xs:top-auto xs:mt-[-10%] sm:mt-[-15%] rounded-xl overflow-hidden shadow-[5.5px_5.5px_13.75px_0px_rgba(0,0,0,0.15)] md:shadow-none px-4 em:px-3 sm:px-6 md:px-0  bg-white'>
-            {/* <img
+            <img
               src={organizationLogo}
               alt='logo'
               className='w-full max-w-[140px] sm:max-w-[156px] md:max-w-[200px] h-[145px] sm:h-[156px] md:h-[200px] object-cover'
-            /> */}
-            <Image
-              src="/assets/images/organizationLogo.webp"
-              alt="logo"
-              width={200}
-              height={200}
-              className="w-[140px] sm:w-[156px] md:w-[200px] h-[145px] sm:h-[156px] md:h-[200px] object-cover"
             />
           </div>
           <h3 className='text-[20px] capitalize sm:text-[24px] font-bold font-Roboto text-black text-center leading-[116.5%] mt-[16px] xs:mt-[18px] mb-[16px] sm:my-[16px]'>
@@ -54,6 +47,7 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
             </p>
           )}
         </div>
+        
         <div className=' flex items-center gap-3 mt-[12px]'>
           <div className='w-full max-w-[48px] h-[48px] rounded-full'>
             <Image src={organizationOwnerImg} alt='img' className='w-full h-full  object-cover' />

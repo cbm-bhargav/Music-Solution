@@ -23,7 +23,7 @@ export default class CustomDocument extends Document {
         <Head>
           {this.props.styleTags}
           {/** Add Google fonts and Preconnect to Google Servers - Next JS will add Optimizations automatically  */}
-          {/* <link rel='preconnect' href='https://fonts.googleapis.com' /> */}
+          <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link rel='preconnect' href='https://www.googletagmanager.com' />
           <link
