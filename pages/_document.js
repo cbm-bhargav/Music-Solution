@@ -72,14 +72,14 @@ export default class CustomDocument extends Document {
           <style
             dangerouslySetInnerHTML={{
               __html: `
-                /* fallback */
-                // @font-face {
-                //   font-family: 'Material Icons Outlined';
-                //   font-style: normal;
-                //   font-weight: 400;
-                //   font-display: swap;
-                //   src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v95/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUcel5euIg.woff2) format('woff2');
-                // }
+                // /* fallback */
+                @font-face {
+                  font-family: 'Material Icons Outlined';
+                  font-style: normal;
+                  font-weight: 400;
+                  font-display: swap;
+                  src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v95/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUcel5euIg.woff2) format('woff2');
+                }
 
                 .material-icons-outlined {
                   font-family: 'Material Icons Outlined';
