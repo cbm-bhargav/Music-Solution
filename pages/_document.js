@@ -54,20 +54,6 @@ export default class CustomDocument extends Document {
             type="font/ttf"
             crossOrigin="anonymous"
           />
-          <link
-            rel="preload"
-            href="/assets/fonts/ms_instruments.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/assets/fonts/ms_instruments.woff"
-            as="font"
-            type="font/woff"
-            crossOrigin="anonymous"
-          />
 
           <style
             dangerouslySetInnerHTML={{
