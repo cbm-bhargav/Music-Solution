@@ -22,8 +22,13 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
               className='w-full max-w-[140px] sm:max-w-[156px] md:max-w-[200px] h-[145px] sm:h-[156px] md:h-[200px] object-cover'
             />
           </div>
-          <h3 className='text-[20px] capitalize sm:text-[24px] font-bold font-Roboto text-black text-center leading-[116.5%] mt-[16px] xs:mt-[18px] mb-[16px] sm:my-[16px]'>
+          {/* <h3 className='text-[20px] capitalize sm:text-[24px] font-bold font-Roboto text-black text-center leading-[116.5%] mt-[16px] xs:mt-[18px] mb-[16px] sm:my-[16px]'>
             {organizationName}
+          </h3> */}
+          <h3
+            className="text-[20px] sm:text-[24px] font-bold font-Roboto text-black text-center leading-[116.5%] mt-[16px] xs:mt-[18px] mb-[16px] sm:my-[16px] min-h-[28px]"
+          >
+            {organizationName || ''}
           </h3>
 
           {/* <div className='flex items-center gap-3  mb-[24px]'>
@@ -43,10 +48,14 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
           </div> */}
     
           {organizationData?.availability_text?.[language == 'ch-en' ? 'en' : 'de'] && (
-            <p className='text-[14px] font-Roboto leading-[147%] text-black border-b-[1px] border-[#D0D5DD] pb-[12px]'>
-              {organizationData?.availability_text[language == 'ch-en' ? 'en' : 'de']}
+            // <p className='text-[14px] font-Roboto leading-[147%] text-black border-b-[1px] border-[#D0D5DD] pb-[12px]'>
+            //   {organizationData?.availability_text[language == 'ch-en' ? 'en' : 'de']}
+            // </p>
+            <p className="text-[14px] font-Roboto leading-[147%] text-black border-b border-[#D0D5DD] pb-[12px] min-h-[40px]">
+              {organizationData?.availability_text?.[language === 'ch-en' ? 'en' : 'de'] || ''}
             </p>
           )}
+          
         </div>
         
         <div className=' flex items-center gap-3 mt-[12px]'>
