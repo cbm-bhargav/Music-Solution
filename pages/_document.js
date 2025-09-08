@@ -40,7 +40,21 @@ export default class CustomDocument extends Document {
             type="font/ttf"
             crossOrigin="anonymous"
           />
-          
+          <link
+            rel="preload"
+            href="/assets/fonts/Roboto/Roboto-Light.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/assets/fonts/Roboto/Roboto-Medium.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+
           <style
             dangerouslySetInnerHTML={{
               __html: `
