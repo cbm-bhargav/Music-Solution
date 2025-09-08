@@ -10,15 +10,20 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
   const organizationName = language == 'ch-en' ? full_name?.en : full_name?.de;
   const phoneNumber = contact?.phone?.startsWith('+') ? contact.phone : `+${contact?.phone}`;
   const { width } = useWindowSize()
-  const defaultText = {
-    en: "You can reach us on weekdays during the day. If we're busy, please leave a message — we will call you back promptly. We look forward to hearing from you!",
-    de: "Du kannst uns wochentags tagsüber erreichen. Falls besetzt: Bitte Nachricht hinterlassen – wir rufen zeitnah zurück. Wir freuen uns, von dir zu hören!",
-  };
-
 
   return (
-    <div className='w-full max-w-full  md:max-w-[28%]   mt-[-10%] xs:mt-[-15%] md:mt-[-19%] xl:mt-[-17.1%]  z-1   md:sticky md:top-[20px] top-auto  md:ml-3 lg:ml-[40px]  relative md:px-0 px-[8px]'>
-      <div className='bg-white px-[16px] xs:px-[24px]  shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.10),0px_4px_6px_-2px_rgba(16,24,40,0.05)] sm:rounded-[20px] rounded-b-[20px] xs:pt-0 pt-20'>
+    // <div className='w-full max-w-full  md:max-w-[28%]   mt-[-10%] xs:mt-[-15%] md:mt-[-19%] xl:mt-[-17.1%]  z-1   md:sticky md:top-[20px] top-auto  md:ml-3 lg:ml-[40px]  relative md:px-0 px-[8px]'>
+    //   <div className='bg-white px-[16px] xs:px-[24px]  shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.10),0px_4px_6px_-2px_rgba(16,24,40,0.05)] sm:rounded-[20px] rounded-b-[20px] xs:pt-0 pt-20'>
+    <div
+      className={`w-full max-w-full md:max-w-[28%] mt-[-10%] xs:mt-[-15%] md:mt-[-19%] xl:mt-[-17.1%] 
+                  z-1 md:sticky md:top-[20px] top-auto md:ml-3 lg:ml-[40px] relative md:px-0 px-[8px]
+                  transition-all duration-300`}
+    >
+      <div
+        className="bg-white px-[16px] xs:px-[24px] shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.10),
+                  0px_4px_6px_-2px_rgba(16,24,40,0.05)] sm:rounded-[20px] rounded-b-[20px] xs:pt-0 pt-20
+                  min-h-[375px] flex flex-col justify-between"
+      >
         <div className='flex items-center flex-col pt-6 md:pt-0 '>
           <div className='md:mt-0 absolute xs:static top-[-48px] em:top-[-70px] xs:top-auto xs:mt-[-10%] sm:mt-[-15%] rounded-xl overflow-hidden shadow-[5.5px_5.5px_13.75px_0px_rgba(0,0,0,0.15)] md:shadow-none px-4 em:px-3 sm:px-6 md:px-0  bg-white'>
             <img
@@ -34,8 +39,7 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
     
           {organizationData?.availability_text?.[language == 'ch-en' ? 'en' : 'de'] && (
           <p className="text-[14px] font-Roboto leading-[147%] text-black border-b border-[#D0D5DD] pb-[12px] min-h-[40px]">
-            {organizationData?.availability_text?.[language === 'ch-en' ? 'en' : 'de'] ||
-              defaultText[language === 'ch-en' ? 'en' : 'de']}
+            {organizationData?.availability_text?.[language === 'ch-en' ? 'en' : 'de'] || '' }
           </p>
           )}
           
