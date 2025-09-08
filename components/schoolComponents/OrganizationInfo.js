@@ -284,7 +284,6 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
           width={1440}
           height={280}
           priority
-          fetchPriority="high"
           sizes="100vw"
           className="object-cover rounded-xl"
         />
