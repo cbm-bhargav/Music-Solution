@@ -40,25 +40,7 @@ export default class CustomDocument extends Document {
             type="font/ttf"
             crossOrigin="anonymous"
           />
-          <link
-            rel="preload"
-            href="/assets/fonts/Roboto/Roboto-Light.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/assets/fonts/Roboto/Roboto-Medium.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap'
-            rel='stylesheet'
-          />
-
+          
           <style
             dangerouslySetInnerHTML={{
               __html: `

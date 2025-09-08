@@ -155,7 +155,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-style: normal;
   font-family: "Roboto";
   font-display: swap;
-  src: url("../assets/fonts/Roboto/Roboto-Light.ttf") format("truetype");
+  src: url("/assets/fonts/Roboto/Roboto-Light.ttf") format("truetype");
 }
 
 @font-face {
@@ -163,7 +163,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-style: normal;
   font-family: "Roboto";
   font-display: swap;
-  src: url("../assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+  src: url("/assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -171,7 +171,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-style: normal;
   font-family: "Roboto";
   font-display: swap;
-  src: url("../assets/fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+  src: url("/assets/fonts/Roboto/Roboto-Medium.ttf") format("truetype");
 }
 
 @font-face {
@@ -179,18 +179,18 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-style: normal;
   font-family: "Roboto";
   font-display: swap;
-  src: url("../assets/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+  src: url("/assets/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
 }
 
 // MS instruments font
 @font-face {
   font-family: "ms_instruments";
-src: url("../assets/fonts/ms_instruments.eot?ib2p1o");
+src: url("/assets/fonts/ms_instruments.eot?ib2p1o");
 src:
-  url("../assets/fonts/ms_instruments.eot?ib2p1o#iefix") format("embedded-opentype"),
-  url("../assets/fonts/ms_instruments.ttf?ib2p1o") format("truetype"),
-  url("../assets/fonts/ms_instruments.woff?ib2p1o") format("woff"),
-  url("../assets/fonts/ms_instruments.svg?ib2p1o#ms_instruments") format("svg");
+  url("/assets/fonts/ms_instruments.eot?ib2p1o#iefix") format("embedded-opentype"),
+  url("/assets/fonts/ms_instruments.ttf?ib2p1o") format("truetype"),
+  url("/assets/fonts/ms_instruments.woff?ib2p1o") format("woff"),
+  url("/assets/fonts/ms_instruments.svg?ib2p1o#ms_instruments") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
