@@ -41,6 +41,7 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
             </div>
             <span className='text-black text-[15px] font-Roboto font-semibold leading-[100%]'>{`4.6 (17)`}</span>
           </div> */}
+    
           {organizationData?.availability_text?.[language == 'ch-en' ? 'en' : 'de'] && (
             <p className='text-[14px] font-Roboto leading-[147%] text-black border-b-[1px] border-[#D0D5DD] pb-[12px]'>
               {organizationData?.availability_text[language == 'ch-en' ? 'en' : 'de']}

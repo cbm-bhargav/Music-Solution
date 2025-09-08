@@ -41,7 +41,7 @@ const FooterLogoSection = ({ footerData, isTeacherInfoPage, language }) => {
     <div className='md:pb-8 lg:basis-1/3 xl:pb-0 lg:w-full lg:max-w-[270px] '>
       <div className='max-w-[300pdx]'>
         {/* <IconComponent icon={icon_name?.toLowerCase()} /> */}
-        <Image src="/assets/images/my-icon.png" alt="logo" width={200} height={150} />
+        <Image src="/assets/images/footerlogo.webp" alt="logo" width={200} height={150} className='mix-blend-multiply'/>
       </div>
       <p className='mt-6 text-black text-16px opacity-60'>{internal_link[0].name}</p>
       <div className='lg:flex md:flex mb-8 mt-24'>

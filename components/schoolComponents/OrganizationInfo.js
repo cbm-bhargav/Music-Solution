@@ -280,7 +280,7 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
         {/* main page background image - schollbg.web */}
         <div className="relative h-[141px] xs:h-[180px] sm:h-[280px]">
           <Image
-            src="/assets/images/schollbg1.webp"
+            src="/assets/images/schollbg.webp"
             alt="School background"
             layout='fill'
             priority
