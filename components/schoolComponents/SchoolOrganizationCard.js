@@ -10,6 +10,11 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
   const organizationName = language == 'ch-en' ? full_name?.en : full_name?.de;
   const phoneNumber = contact?.phone?.startsWith('+') ? contact.phone : `+${contact?.phone}`;
   const { width } = useWindowSize()
+  const defaultText = {
+    en: "You can reach us on weekdays during the day. If we're busy, please leave a message — we will call you back promptly. We look forward to hearing from you!",
+    de: "Du kannst uns wochentags tagsüber erreichen. Falls besetzt: Bitte Nachricht hinterlassen – wir rufen zeitnah zurück. Wir freuen uns, von dir zu hören!",
+  };
+
 
   return (
     <div className='w-full max-w-full  md:max-w-[28%]   mt-[-10%] xs:mt-[-15%] md:mt-[-19%] xl:mt-[-17.1%]  z-1   md:sticky md:top-[20px] top-auto  md:ml-3 lg:ml-[40px]  relative md:px-0 px-[8px]'>
@@ -29,7 +34,8 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
     
           {organizationData?.availability_text?.[language == 'ch-en' ? 'en' : 'de'] && (
           <p className="text-[14px] font-Roboto leading-[147%] text-black border-b border-[#D0D5DD] pb-[12px] min-h-[40px]">
-            {organizationData?.availability_text?.[language === 'ch-en' ? 'en' : 'de'] || ''}
+            {organizationData?.availability_text?.[language === 'ch-en' ? 'en' : 'de'] ||
+              defaultText[language === 'ch-en' ? 'en' : 'de']}
           </p>
           )}
           
