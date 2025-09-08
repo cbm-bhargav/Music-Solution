@@ -276,31 +276,32 @@ const OrganizationInfo = ({ language, organizationData, seoActions = {}, instrum
           </div>
         </div>
       </div> */}
-      <div className="relative w-full max-w-[1440px] mx-auto sm:mt-6 rounded-xl overflow-hidden px-2">
-        {/* main page background image - schollbg.web */}
-        <div className="relative h-[141px] xs:h-[180px] sm:h-[280px]">
-          <Image
-            src="/assets/images/schollbg.webp"
-            alt="School background"
-            layout='fill'
-            priority
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
-            className="object-cover rounded-xl"
-          />
-        </div>
-        
-        {/* Share button */}
-        <button
+
+      <div className="w-full max-w-[1440px] mx-auto sm:mt-[24.5px] h-[141px] xs:h-[180px] sm:h-[280px] [&>span]:!h-full pt-4 sm:pt-0 relative rounded-xl px-[8px] ">
+        <Image
+          src="/assets/images/schollbg.webp"
+          alt="School background"
+          width={1440}
+          height={280}
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          className="object-cover rounded-xl"
+        />
+
+        <div
           onClick={shareLinkHandle}
-          className="absolute top-[30px] sm:top-[39px] right-[15px] sm:right-[40px] group w-[28px] sm:w-[40px] h-[28px] sm:h-[40px] bg-white rounded-full flex items-center justify-center p-[6px] shadow cursor-pointer"
-          aria-label="Share"
+          className="absolute top-[30px] sm:top-[39px] right-[15px] sm:right-[40px]"
         >
-          <ShareIcon className="w-[16px] h-[16px]" />
-          <span className="absolute -top-2 right-1/2 translate-x-1/2 -translate-y-full bg-black/50 text-[12px] leading-[110%] tracking-[0.5px] font-medium text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
-            Share
-          </span>
-        </button>
+          <div className="relative group w-[28px] sm:w-[40px] h-[28px] sm:h-[40px] bg-white rounded-full p-[6px] flex items-center justify-center cursor-pointer">
+            <ShareIcon className="w-[16px] h-[16px]" />
+            <span className="absolute -top-2 right-[50%] translate-x-1/2 -translate-y-full bg-black/50 text-[12px] leading-[110%] tracking-[0.5px] font-medium text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+              Share
+            </span>
+          </div>
+        </div>
       </div>
+
       <TeacherCallbackPopups language={language} />
 
       <div className='flex md:flex-row flex-col items-center md:items-start justify-start gap-[12px] sm:gap-[25px] lg:gap-[40px]'>
