@@ -91,12 +91,12 @@ export default class CustomDocument extends Document {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </Head>
         <body>
-          {/* Google Tag Manager (noscript)  */}
+          {/* Google Tag Manager (noscript) */}
           <noscript
             dangerouslySetInnerHTML={{
               __html: `
                 <iframe 
-                  title='Google Tag Manager'
+                  title="Google Tag Manager"
                   src="https://www.googletagmanager.com/ns.html?id=${process.env.GOOGLE_TAG_MANAGER_ID}" 
                   height="0" 
                   width="0" 
