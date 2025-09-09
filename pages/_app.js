@@ -109,10 +109,10 @@ const MyApp = ({ Component, pageProps }) => {
 
         if (!Bugsnag._client) {
           Bugsnag.start({
-            apiKey: 'a9f8a6cb4a257c3e57abd95f0bd19e3f',
+            apiKey: process.env.NEXT_PUBLIC_BUGSNAG_API_KEY,
             plugins: [new BugsnagPluginReact()],
           });
-          BugsnagPerformance.start({ apiKey: 'a9f8a6cb4a257c3e57abd95f0bd19e3f' });
+          BugsnagPerformance.start({ apiKey: process.env.NEXT_PUBLIC_BUGSNAG_API_KEY });
         }
 
         const EB = Bugsnag.getPlugin('react').createErrorBoundary(React);
@@ -143,7 +143,7 @@ const MyApp = ({ Component, pageProps }) => {
                 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
                 j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
                 f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');
+              })(window,document,'script','dataLayer','${process.env.GOOGLE_TAG_MANAGER_ID}');
             `,
           }}
         />
