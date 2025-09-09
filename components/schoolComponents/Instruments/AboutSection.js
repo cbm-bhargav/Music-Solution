@@ -110,7 +110,7 @@ function AboutSection({ organizationData, language, instrumentsData = [], setCom
   // );
 
   return (
-    <div className="min-h-[300px]"> {/* 👈 reserve vertical space */}
+    <div className="min-h-[350px]"> {/* 👈 reserve vertical space */}
       <div className="pb-[24px] mb-[12px] border-b-[1px] border-[#E4E7EC] min-h-[60px]">
         {organizationData && organizationData?.about ? (
           <ShowMoreTextNext
@@ -139,7 +139,7 @@ function AboutSection({ organizationData, language, instrumentsData = [], setCom
         }
       </p>
 
-      <div className="min-h-[100px]"> {/* 👈 reserve for instruments */}
+      <div className="min-h-[150px]"> {/* 👈 reserve for instruments */}
         {currectInstruments && currectInstruments?.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {displayedInstruments ? (
