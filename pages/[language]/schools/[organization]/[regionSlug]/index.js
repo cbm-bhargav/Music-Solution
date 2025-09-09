@@ -272,6 +272,7 @@ function SchoolData({
       <div className='w-full max-w-[1280px] xl:max-w-[1440px] mx-auto lg:mt-6 xl:px-4'>
         <SchoolPageProvider>
           <SnackbarProvider>
+           {organizationData ? (
             <OrganizationInfo
               organizationData={organizationData}
               language={language}
@@ -279,7 +280,10 @@ function SchoolData({
               teachers={teachers}
               coursesData={initialCourseData}
             />
-          </SnackbarProvider>
+            ) : (
+              <div className="h-[375px]" />
+            )}
+                    </SnackbarProvider>
         </SchoolPageProvider>
       </div>
       <Footer story={story} />
