@@ -50,44 +50,26 @@ export async function getStaticPaths() {
 }
 
 // Helper function to create metadata (moved from client component)
-// function createMetaDataByLanguage(language, organizationData, organization, req) {
-//   const is_english = language === 'ch-en';
-//   const organizationFullName = is_english ? organizationData?.full_name?.en : organizationData?.full_name?.de;
-
-//   // Get host from request headers for server-side rendering
-//   const host = req?.headers?.host || 'matchspace.click';
-//   const protocol = req?.headers?.['x-forwarded-proto'] || 'https';
-//   const baseUrl = `${protocol}://${host}`;
-
-//   const meta = {
-//     title: organizationFullName + ' ∙ ' + organization.toUpperCase() + ' ∙ ' + 'Matchspace Music',
-//     description: is_english ? organizationData?.about?.en : organizationData?.about?.de,
-//     og_title: organizationFullName + ' ∙ ' + organization.toUpperCase() + ' ∙ ' + 'Matchspace Music',
-//     og_image: baseUrl + organizationData?.organizationLogo,
-//     og_description: is_english ? organizationData?.about?.en : organizationData?.about?.de,
-//     og_type: 'website',
-//     og_locale: is_english ? 'en' : 'de',
-//     og_site_name: organizationFullName,
-//   };
-//   return meta;
-// }
 function createMetaDataByLanguage(language, organizationData, organization, req) {
-  const isEnglish = language === 'ch-en';
-  const organizationFullName = isEnglish ? organizationData?.full_name?.en : organizationData?.full_name?.de;
+  const is_english = language === 'ch-en';
+  const organizationFullName = is_english ? organizationData?.full_name?.en : organizationData?.full_name?.de;
+
+  // Get host from request headers for server-side rendering
   const host = req?.headers?.host || 'matchspace.click';
   const protocol = req?.headers?.['x-forwarded-proto'] || 'https';
   const baseUrl = `${protocol}://${host}`;
 
-  return {
-    title: `${organizationFullName} ∙ ${organization.toUpperCase()} ∙ Matchspace Music`,
-    description: isEnglish ? organizationData?.about?.en || '' : organizationData?.about?.de || '',
-    og_title: `${organizationFullName} ∙ ${organization.toUpperCase()} ∙ Matchspace Music`,
-    og_image: baseUrl + (organizationData?.organizationLogo || ''),
-    og_description: isEnglish ? organizationData?.about?.en || '' : organizationData?.about?.de || '',
+  const meta = {
+    title: organizationFullName + ' ∙ ' + organization.toUpperCase() + ' ∙ ' + 'Matchspace Music',
+    description: is_english ? organizationData?.about?.en : organizationData?.about?.de,
+    og_title: organizationFullName + ' ∙ ' + organization.toUpperCase() + ' ∙ ' + 'Matchspace Music',
+    og_image: baseUrl + organizationData?.organizationLogo,
+    og_description: is_english ? organizationData?.about?.en : organizationData?.about?.de,
     og_type: 'website',
-    og_locale: isEnglish ? 'en' : 'de',
-    og_site_name: organizationFullName || '',
+    og_locale: is_english ? 'en' : 'de',
+    og_site_name: organizationFullName,
   };
+  return meta;
 }
 
 export async function getStaticProps({ params, req }) {
