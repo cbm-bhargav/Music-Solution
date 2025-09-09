@@ -16,14 +16,18 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
       <div className="bg-white px-[16px] xs:px-[24px] shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.10),0px_4px_6px_-2px_rgba(16,24,40,0.05)] sm:rounded-[20px] rounded-b-[20px] xs:pt-0 pt-20">
         <div className="flex items-center flex-col pt-6 md:pt-0">
           {/* Logo with reserved space */}
-          <div className='md:mt-0 absolute xs:static top-[-48px] em:top-[-70px] xs:top-auto xs:mt-[-10%] sm:mt-[-15%] rounded-xl overflow-hidden shadow-[5.5px_5.5px_13.75px_0px_rgba(0,0,0,0.15)] md:shadow-none px-4 em:px-3 sm:px-6 md:px-0  bg-white'>
-             <img
-               src={organizationLogo}
-               alt='logo'
-               className='w-full max-w-[140px] sm:max-w-[156px] md:max-w-[200px] h-[145px] sm:h-[156px] md:h-[200px] object-cover'
-             />
-           </div>
-
+          <div className="md:mt-0 absolute xs:static top-[-48px] em:top-[-70px] xs:top-auto xs:mt-[-10%] sm:mt-[-15%] rounded-xl overflow-hidden shadow-[5.5px_5.5px_13.75px_0px_rgba(0,0,0,0.15)] md:shadow-none px-4 em:px-3 sm:px-6 md:px-0 bg-white">
+            <div className="relative w-[145px] h-[145px] sm:w-[156px] sm:h-[156px] md:w-[200px] md:h-[200px]">
+              <Image
+                src={organizationLogo || "/placeholder-logo.png"}
+                alt="logo"
+                layout='fill'
+                priority
+                sizes="(max-width: 640px) 145px, (max-width: 768px) 156px, 200px"
+                className="object-cover"
+              />
+            </div>
+          </div>
           {/* Organization name with reserved min height */}
           <h3 className="text-[20px] sm:text-[24px] font-bold font-Roboto text-black text-center leading-[116.5%] mt-[16px] mb-[16px] min-h-[28px]">
             {organizationName || <span className="inline-block bg-gray-200 h-[28px] w-[90px] animate-pulse rounded"></span>}
