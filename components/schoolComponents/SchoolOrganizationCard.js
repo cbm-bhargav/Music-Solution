@@ -6,38 +6,47 @@ import organizationOwnerImg from 'public/assets/images/profile.webp';
 import useWindowSize from 'hooks/useWindowSize';
 
 function SchoolOrganizationCard({ organizationData, language, showPopup, itemReachPoint }) {
-  const { full_name, organizationLogo, organizationOwner,contact } = organizationData;
-  const organizationName = language == 'ch-en' ? full_name?.en : full_name?.de;
-  const phoneNumber = contact?.phone?.startsWith('+') ? contact.phone : `+${contact?.phone}`;
-  const { width } = useWindowSize()
+  const { full_name, organizationLogo, organizationOwner, contact } = organizationData;
+  const organizationName = language === "ch-en" ? full_name?.en : full_name?.de;
+  const phoneNumber = contact?.phone?.startsWith("+") ? contact.phone : `+${contact?.phone}`;
+  const { width } = useWindowSize();
 
   return (
-    <div className='w-full max-w-full  md:max-w-[28%]   mt-[-10%] xs:mt-[-15%] md:mt-[-19%] xl:mt-[-17.1%]  z-1   md:sticky md:top-[20px] top-auto  md:ml-3 lg:ml-[40px]  relative md:px-0 px-[8px]'>
-      <div className='bg-white px-[16px] xs:px-[24px]  shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.10),0px_4px_6px_-2px_rgba(16,24,40,0.05)] sm:rounded-[20px] rounded-b-[20px] xs:pt-0 pt-20'>
-        <div className='flex items-center flex-col pt-6 md:pt-0 '>
-          <div className='md:mt-0 absolute xs:static top-[-48px] em:top-[-70px] xs:top-auto xs:mt-[-10%] sm:mt-[-15%] rounded-xl overflow-hidden shadow-[5.5px_5.5px_13.75px_0px_rgba(0,0,0,0.15)] md:shadow-none px-4 em:px-3 sm:px-6 md:px-0  bg-white'>
-            <img
-              src={organizationLogo}
-              alt='logo'
-              className='w-full max-w-[140px] sm:max-w-[156px] md:max-w-[200px] h-[145px] sm:h-[156px] md:h-[200px] object-cover'
+    <div className="w-full max-w-full md:max-w-[28%] mt-[-10%] xs:mt-[-15%] md:mt-[-19%] xl:mt-[-17.1%] z-1 md:sticky md:top-[20px] top-auto md:ml-3 lg:ml-[40px] relative md:px-0 px-[8px]">
+      <div className="bg-white px-[16px] xs:px-[24px] shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.10),0px_4px_6px_-2px_rgba(16,24,40,0.05)] sm:rounded-[20px] rounded-b-[20px] xs:pt-0 pt-20">
+        <div className="flex items-center flex-col pt-6 md:pt-0">
+          {/* Logo with reserved space */}
+          <div className="md:mt-0 absolute xs:static top-[-48px] em:top-[-70px] xs:top-auto xs:mt-[-10%] sm:mt-[-15%] rounded-xl overflow-hidden shadow-[5.5px_5.5px_13.75px_0px_rgba(0,0,0,0.15)] md:shadow-none px-4 em:px-3 sm:px-6 md:px-0 bg-white">
+            <Image
+              src={organizationLogo || "/placeholder-logo.png"}
+              alt="logo"
+              width={200}
+              height={200}
+              className="object-cover w-[140px] sm:w-[156px] md:w-[200px] h-[145px] sm:h-[156px] md:h-[200px]"
+              priority
             />
           </div>
-        
+
+          {/* Organization name with reserved min height */}
           <h3 className="text-[20px] sm:text-[24px] font-bold font-Roboto text-black text-center leading-[116.5%] mt-[16px] mb-[16px] min-h-[28px]">
-           {organizationName || ''}
+            {organizationName || <span className="inline-block bg-gray-200 h-[28px] w-[120px] animate-pulse rounded"></span>}
           </h3>
-    
-          {organizationData?.availability_text?.[language == 'ch-en' ? 'en' : 'de'] && (
-          <p className="text-[14px] font-Roboto leading-[147%] text-black border-b border-[#D0D5DD] pb-[12px] min-h-[40px]">
-            {organizationData?.availability_text?.[language === 'ch-en' ? 'en' : 'de'] || '' }
-          </p>
-          )}
-          
+
+          {/* Availability text with skeleton fallback */}
+          <div className="border-b border-[#D0D5DD] pb-[12px] min-h-[40px] w-full text-center">
+            {organizationData?.availability_text?.[language === "ch-en" ? "en" : "de"] ? (
+              <p className="text-[14px] font-Roboto leading-[147%] text-black">
+                {organizationData?.availability_text?.[language === "ch-en" ? "en" : "de"]}
+              </p>
+            ) : (
+              <div className="bg-gray-200 h-[14px] w-3/4 mx-auto animate-pulse rounded"></div>
+            )}
+          </div>
         </div>
-        
+
         {/* Owner info */}
         <div className="flex items-center gap-3 mt-[12px]">
-          <div className="w-[48px] h-[48px] rounded-full overflow-hidden">
+          <div className="w-[48px] h-[48px] rounded-full overflow-hidden bg-gray-100">
             <Image
               src={organizationOwnerImg}
               alt="Owner"
@@ -48,10 +57,16 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
           </div>
           <div>
             <h4 className="text-[15px] font-Roboto font-bold leading-[160%] text-black/[87%] min-h-[24px]">
-              {contact?.firstname} {contact?.lastname}
+              {(contact?.firstname || contact?.lastname) ? (
+                `${contact?.firstname ?? ""} ${contact?.lastname ?? ""}`
+              ) : (
+                <span className="inline-block bg-gray-200 h-[16px] w-[100px] animate-pulse rounded"></span>
+              )}
             </h4>
             <h5 className="text-[14px] leading-[150%] font-Roboto text-[#000000ae] min-h-[20px]">
-              {language === 'ch-en' ? contact?.role?.en : contact?.role?.de}
+              {language === "ch-en" ? contact?.role?.en : contact?.role?.de || (
+                <span className="inline-block bg-gray-200 h-[14px] w-[60px] animate-pulse rounded"></span>
+              )}
             </h5>
           </div>
         </div>
@@ -61,12 +76,12 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
           <button
             className="text-[15px] font-medium font-Roboto uppercase text-white bg-[#21697C] py-3 px-4 rounded-full border border-transparent transition-all duration-300 ease-linear leading-[126%] hover:bg-[#004252]"
             onClick={() =>
-              showPopup('contectUs', {
-                title: translateENtoDE('Get in touch with us', language),
+              showPopup("contectUs", {
+                title: translateENtoDE("Get in touch with us", language),
               })
             }
           >
-            {language === 'ch-en' ? 'CONTACT US' : translateENtoDE('WRITE US', language)}
+            {language === "ch-en" ? "CONTACT US" : translateENtoDE("WRITE US", language)}
           </button>
 
           {width < 600 ? (
@@ -74,18 +89,18 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
               href={`tel:${phoneNumber}`}
               className="text-[15px] font-medium font-Roboto uppercase text-[#21697C] border border-[#21697C] py-3 px-4 rounded-full transition-all duration-300 ease-linear leading-[126%] hover:bg-[#21697C]/[10%] w-full text-center"
             >
-              {translateENtoDE('CALL US', language)}
+              {translateENtoDE("CALL US", language)}
             </a>
           ) : (
             <button
               onClick={() =>
-                showPopup('callUs', {
-                  title: translateENtoDE('Get in touch with us', language),
+                showPopup("callUs", {
+                  title: translateENtoDE("Get in touch with us", language),
                 })
               }
               className="text-[15px] font-medium font-Roboto uppercase text-[#21697C] border border-[#21697C] py-3 px-4 rounded-full transition-all duration-300 ease-linear leading-[126%] hover:bg-[#21697C]/[10%] w-full text-center"
             >
-              {translateENtoDE('CALL US', language)}
+              {translateENtoDE("CALL US", language)}
             </button>
           )}
         </div>
@@ -95,6 +110,98 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
 }
 
 export default SchoolOrganizationCard;
+
+
+// function SchoolOrganizationCard({ organizationData, language, showPopup, itemReachPoint }) {
+//   const { full_name, organizationLogo, organizationOwner,contact } = organizationData;
+//   const organizationName = language == 'ch-en' ? full_name?.en : full_name?.de;
+//   const phoneNumber = contact?.phone?.startsWith('+') ? contact.phone : `+${contact?.phone}`;
+//   const { width } = useWindowSize()
+
+//   return (
+//     <div className='w-full max-w-full  md:max-w-[28%]   mt-[-10%] xs:mt-[-15%] md:mt-[-19%] xl:mt-[-17.1%]  z-1   md:sticky md:top-[20px] top-auto  md:ml-3 lg:ml-[40px]  relative md:px-0 px-[8px]'>
+//       <div className='bg-white px-[16px] xs:px-[24px]  shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.10),0px_4px_6px_-2px_rgba(16,24,40,0.05)] sm:rounded-[20px] rounded-b-[20px] xs:pt-0 pt-20'>
+//         <div className='flex items-center flex-col pt-6 md:pt-0 '>
+//           <div className='md:mt-0 absolute xs:static top-[-48px] em:top-[-70px] xs:top-auto xs:mt-[-10%] sm:mt-[-15%] rounded-xl overflow-hidden shadow-[5.5px_5.5px_13.75px_0px_rgba(0,0,0,0.15)] md:shadow-none px-4 em:px-3 sm:px-6 md:px-0  bg-white'>
+//             <img
+//               src={organizationLogo}
+//               alt='logo'
+//               className='w-full max-w-[140px] sm:max-w-[156px] md:max-w-[200px] h-[145px] sm:h-[156px] md:h-[200px] object-cover'
+//             />
+//           </div>
+        
+//           <h3 className="text-[20px] sm:text-[24px] font-bold font-Roboto text-black text-center leading-[116.5%] mt-[16px] mb-[16px] min-h-[28px]">
+//            {organizationName || ''}
+//           </h3>
+    
+//           {organizationData?.availability_text?.[language == 'ch-en' ? 'en' : 'de'] && (
+//           <p className="text-[14px] font-Roboto leading-[147%] text-black border-b border-[#D0D5DD] pb-[12px] min-h-[40px]">
+//             {organizationData?.availability_text?.[language === 'ch-en' ? 'en' : 'de'] || '' }
+//           </p>
+//           )}
+          
+//         </div>
+        
+//         {/* Owner info */}
+//         <div className="flex items-center gap-3 mt-[12px]">
+//           <div className="w-[48px] h-[48px] rounded-full overflow-hidden">
+//             <Image
+//               src={organizationOwnerImg}
+//               alt="Owner"
+//               width={48}
+//               height={48}
+//               className="object-cover"
+//             />
+//           </div>
+//           <div>
+//             <h4 className="text-[15px] font-Roboto font-bold leading-[160%] text-black/[87%] min-h-[24px]">
+//               {contact?.firstname} {contact?.lastname}
+//             </h4>
+//             <h5 className="text-[14px] leading-[150%] font-Roboto text-[#000000ae] min-h-[20px]">
+//               {language === 'ch-en' ? contact?.role?.en : contact?.role?.de}
+//             </h5>
+//           </div>
+//         </div>
+
+//         {/* Buttons */}
+//         <div className="flex flex-col gap-4 py-[16px]">
+//           <button
+//             className="text-[15px] font-medium font-Roboto uppercase text-white bg-[#21697C] py-3 px-4 rounded-full border border-transparent transition-all duration-300 ease-linear leading-[126%] hover:bg-[#004252]"
+//             onClick={() =>
+//               showPopup('contectUs', {
+//                 title: translateENtoDE('Get in touch with us', language),
+//               })
+//             }
+//           >
+//             {language === 'ch-en' ? 'CONTACT US' : translateENtoDE('WRITE US', language)}
+//           </button>
+
+//           {width < 600 ? (
+//             <a
+//               href={`tel:${phoneNumber}`}
+//               className="text-[15px] font-medium font-Roboto uppercase text-[#21697C] border border-[#21697C] py-3 px-4 rounded-full transition-all duration-300 ease-linear leading-[126%] hover:bg-[#21697C]/[10%] w-full text-center"
+//             >
+//               {translateENtoDE('CALL US', language)}
+//             </a>
+//           ) : (
+//             <button
+//               onClick={() =>
+//                 showPopup('callUs', {
+//                   title: translateENtoDE('Get in touch with us', language),
+//                 })
+//               }
+//               className="text-[15px] font-medium font-Roboto uppercase text-[#21697C] border border-[#21697C] py-3 px-4 rounded-full transition-all duration-300 ease-linear leading-[126%] hover:bg-[#21697C]/[10%] w-full text-center"
+//             >
+//               {translateENtoDE('CALL US', language)}
+//             </button>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default SchoolOrganizationCard;
 
 // import Image from 'next/image';
 // import React from 'react';
