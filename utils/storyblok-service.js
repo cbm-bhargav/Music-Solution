@@ -135,3 +135,4 @@ class StoryblokService {
 const storyblokInstance = new StoryblokService();
 
 export default storyblokInstance;
+
