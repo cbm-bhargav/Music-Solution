@@ -29,7 +29,7 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
 
           {/* Organization name with reserved min height */}
           <h3 className="text-[20px] sm:text-[24px] font-bold font-Roboto text-black text-center leading-[116.5%] mt-[16px] mb-[16px] min-h-[28px]">
-            {organizationName || <span className="inline-block bg-gray-200 h-[28px] w-[120px] animate-pulse rounded"></span>}
+            {organizationName || <span className="inline-block bg-gray-200 h-[28px] w-[90px] animate-pulse rounded"></span>}
           </h3>
 
           {/* Availability text with skeleton fallback */}
@@ -39,7 +39,7 @@ function SchoolOrganizationCard({ organizationData, language, showPopup, itemRea
                 {organizationData?.availability_text?.[language === "ch-en" ? "en" : "de"]}
               </p>
             ) : (
-              <div className="bg-gray-200 h-[14px] w-3/4 mx-auto animate-pulse rounded"></div>
+              <div className="bg-gray-200 h-[20px] w-3/4 mx-auto animate-pulse rounded"></div>
             )}
           </div>
         </div>

@@ -58,7 +58,7 @@ function AboutSection({ organizationData, language, instrumentsData = [], setCom
       </p>
       {currectInstruments && currectInstruments?.length > 0 ? (
         <div className='flex flex-wrap gap-2'>
-          {displayedInstruments ? (
+          {/* {displayedInstruments ? (
             displayedInstruments?.map((instrument, idx) => (
               <div
                 onClick={() => {
@@ -80,7 +80,33 @@ function AboutSection({ organizationData, language, instrumentsData = [], setCom
             <span className='text-[14px] text-[#000000ae] leading-[115%] font-Roboto font-medium pt-2'>
               {translateENtoDE('Music lessons are currently not available.', language)}
             </span>
+          )} */}
+          {displayedInstruments && displayedInstruments.length > 0 ? (
+            displayedInstruments.map((instrument, idx) => (
+              <div
+                onClick={() => {
+                  setIsMoreCourseSidebarOpen(true);
+                  handleSelectInstrument(instrument?.id);
+                }}
+                key={instrument?.key ?? idx}
+                className="flex items-center justify-center gap-2 border-[1px] rounded-xl py-[8px] w-fit px-[12px] cursor-pointer border-[#21697C]"
+              >
+                <div
+                  className={`ms_instruments ms_instruments-${String(instrument.key)
+                    .toLowerCase()
+                    .replace(' ', '_')} text-[24px] text-[#21697C]`}
+                />
+                <div className="text-[14px] leading-[115%] font-Roboto font-medium text-[#21697C]">
+                  {language === 'ch-de' ? instrument.de : instrument.en}
+                </div>
+              </div>
+            ))
+          ) : (
+            <span className="text-[14px] text-[#000000ae] leading-[115%] font-Roboto font-medium pt-2">
+              {translateENtoDE('Music lessons are currently not available.', language)}
+            </span>
           )}
+
           {currectInstruments?.length > 8 ? (
             !isExtendedInstrument ? (
               <button
