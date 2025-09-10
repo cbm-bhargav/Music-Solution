@@ -26,6 +26,11 @@ export default class CustomDocument extends Document {
           <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link rel='preconnect' href='https://www.googletagmanager.com' />
+          <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+          <link rel="dns-prefetch" href="https://www.googletagmanager.com/gtag/js" />
+          <link rel="dns-prefetch" href="https://universe-static.elfsightcdn.com" />
+          <link rel="dns-prefetch" href="https://d13sozod7hpim.cloudfront.net" />
+
           {/* <link
             rel="preload"
             href="/assets/fonts/Roboto/Roboto-Regular.ttf"

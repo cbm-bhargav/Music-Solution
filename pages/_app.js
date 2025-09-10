@@ -12,6 +12,7 @@ import Bugsnag from '@bugsnag/js';
 import React, { useEffect, useState } from 'react';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import BugsnagPerformance from '@bugsnag/browser-performance';
+import Head from 'next/head';
 
 if (!Bugsnag._client) {
   Bugsnag.start({
@@ -49,10 +50,13 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <>
+      <Head>
+        <link rel='preconnect' href='https://www.googletagmanager.com' />
+      </Head>
       {/* GTM Script */}
       <Script
         id="google-tag-manager"
-        strategy="afterInteractive"
+        strategy="lazyOnload" 
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,s,l,i){
@@ -68,16 +72,6 @@ const MyApp = ({ Component, pageProps }) => {
           `,
         }}
       />
-
-      {/* GTM NoScript Fallback */}
-      <noscript>
-        <iframe
-          src={`https://www.googletagmanager.com/ns.html?id=${process.env.GOOGLE_TAG_MANAGER_ID}`}
-          height="0"
-          width="0"
-          style={{ display: "none", visibility: "hidden" }}
-        />
-      </noscript>
       
       {/* End Google Tag Manager */}
       <ErrorBoundary>
