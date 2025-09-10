@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Script from 'next/script';
@@ -35,6 +35,35 @@ const FooterLogoSection = ({ footerData, isTeacherInfoPage, language }) => {
       classNames = 'elfsight-app-fd25024a-2452-4e98-9f1a-54ce628a8d66';
     }
   }
+
+  //---------- lazy load google review
+  const widgetRef = useRef(null);
+
+  useEffect(() => {
+    const loadElfsight = () => {
+      if (!document.getElementById('elfsight-widget-script')) {
+        const script = document.createElement('script');
+        script.id = 'elfsight-widget-script';
+        script.src = 'https://static.elfsight.com/platform/platform.js';
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadElfsight();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' } // start loading slightly before visible
+    );
+
+    if (widgetRef.current) observer.observe(widgetRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -86,12 +115,20 @@ const FooterLogoSection = ({ footerData, isTeacherInfoPage, language }) => {
             </div>
           </div>
         </div>
-        <div className='inline-block xl:ml-[97px]  lg:ml-[65px]  md:ml-[50px] sm:-ml-3'>
+
+        {/* <div className='inline-block xl:ml-[97px]  lg:ml-[65px]  md:ml-[50px] sm:-ml-3'>
+          <div className={`${classNames}`} data-elfsight-app-lazy></div>
+        </div> */}
+        <div
+          ref={widgetRef}
+          className="inline-block xl:ml-[97px] lg:ml-[65px] md:ml-[50px] sm:-ml-3"
+        >
           <div className={`${classNames}`} data-elfsight-app-lazy></div>
         </div>
+
       </div>
     </div>
-    <Script src='https://static.elfsight.com/platform/platform.js' async />
+    {/* <Script src='https://static.elfsight.com/platform/platform.js' async /> */}
     </>
   );
 };

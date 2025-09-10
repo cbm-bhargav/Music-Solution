@@ -51,7 +51,10 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <link rel='preconnect' href='https://www.googletagmanager.com' />
+        <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com/gtag/js" />
+        <link rel="dns-prefetch" href="https://universe-static.elfsightcdn.com" />
+        <link rel="dns-prefetch" href="https://d13sozod7hpim.cloudfront.net" />
       </Head>
       {/* GTM Script */}
       <Script
